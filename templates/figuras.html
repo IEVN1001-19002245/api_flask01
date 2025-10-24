@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block contenido %}
+    {% import "_macros.html" as macros %}
+    <h1>Figuras geometricas</h1>
+    <form action="/figuras" method="post">
+    {{macros.campo1('lacdo', 'lado al cuadrado')}}
+    {{macros.campo1('Base', 'Base del triangulo', 'number')}}
+    {{macros.campo1('Altura', 'Altura del triangulo' )}}
+    {{macros.campo1('Radio', 'Radio del circulo')}}
+
+    <button type="submit" class="btn btn-primary">Calcular</button>
+    </form>
+{% endblock %}
