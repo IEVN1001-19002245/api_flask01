@@ -38,8 +38,23 @@ def distancia():
     return render_template("distancia.html", resul=operacion)
 
 @app.route("/figuras", methods=['GET', 'POST'])
-def figuras():    
-    return render_template('figuras.html')
+def figura():
+    total = None
+    figura = None
+    if request.method == 'POST':
+        figura = request.form.get("figura")
+        dato1 = float(request.form.get("dato1"))
+        dato2 = float(request.form.get("dato2"))
+        if figura == "cuadrado":
+            total = dato1 * dato2
+        elif figura == "triangulo":
+            total = (dato1 * dato2) / 2
+        elif figura == "pentagono":
+            total = (5 * dato1 * dato2) / 2 
+        elif figura == "circulo":
+            total = math.pi * (dato1 ** 2)
+    return render_template('figuras.html', total=round(total, 2) if total else None, figura=figura)
+
 
 @app.route('/hola')
 def func():

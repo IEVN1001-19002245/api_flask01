@@ -1,13 +1,24 @@
 {% extends "layout.html" %}
+{% from "_macros.html" import campo1 %}
 {% block contenido %}
-    {% import "_macros.html" as macros %}
-    <h1>Figuras geometricas</h1>
-    <form action="/figuras" method="post">
-    {{macros.campo1('lacdo', 'lado al cuadrado')}}
-    {{macros.campo1('Base', 'Base del triangulo', 'number')}}
-    {{macros.campo1('Altura', 'Altura del triangulo' )}}
-    {{macros.campo1('Radio', 'Radio del circulo')}}
 
+<h1>Calcular área de figuras geométricas</h1>
+<form method="post">
+    <div class="mb-3" style="display: flex; gap: 15px; align-items: center;">
+        <label class="form-label me-2">Selecciona una figura:</label>
+        <label><input type="radio" name="figura" value="cuadrado" required> cuadrado</label>
+        <label><input type="radio" name="figura" value="triangulo"> Triángulo</label>
+        <label><input type="radio" name="figura" value="pentagono"> Pentágono</label>
+        <label><input type="radio" name="figura" value="circulo"> Círculo</label>
+    </div>
+    {{campo1('dato1', 'Ingresa el primer dato')}}
+    {{campo1('dato2', 'Ingresa el segundo dato')}}
     <button type="submit" class="btn btn-primary">Calcular</button>
-    </form>
+</form>
+
+{% if figura and total %}
+    <h3>El área del {{ figura }} es: {{ total }}</h3>
+{% endif %}
 {% endblock %}
+
+ 
