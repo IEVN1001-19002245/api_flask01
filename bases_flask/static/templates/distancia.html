@@ -1,0 +1,16 @@
+{% extends "layout.html"%}
+{% block contenido %}
+{%import "_macros.html" as macros%}
+
+<h2>Distnacias entre dos Puntos</h2>
+<form action="/distancia" method="post" novalidate>
+    {{macros.dcampos(form.equis1)}}
+    {{macros.dcampos(form.igriega1)}}
+    {{macros.dcampos(form.equis2)}}
+    {{macros.dcampos(form.igriega2)}}
+    <button type="submit" class="btn btn-primary">Calcular</button>
+    
+</form>
+
+<h2>La distancia es: {{resultado}}</h2>
+{% endblock %}

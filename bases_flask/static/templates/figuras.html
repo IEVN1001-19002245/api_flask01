@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block contenido %}
+
+{% import "_macros.html" as macros %}
+
+<h1>Figuras Geométricas</h1>
+
+<form action="/figuras" method="post">
+
+    <h3>Selecciona una figura:</h3>
+    <label><input type="radio" name="figura" value="cuadrado"> Cuadrado</label>
+    <label><input type="radio" name="figura" value="triangulo"> Triangulo</label>
+    <label><input type="radio" name="figura" value="circulo"> Circulo</label>
+    <label><input type="radio" name="figura" value="pentagono"> Pentagono</label>
+
+    {{ macros.campo1('valor1', 'Lado | Base | Radio', 'number') }}
+    {{ macros.campo1('valor2', 'Altura para triangulo', 'number') }}
+
+    <button type="submit" class="btn btn-primary">Calcular</button>
+</form>
+
+{% if resultado %}
+    <h1>{{ resultado }}</h1>
+{% endif %}
+
+{% endblock %}

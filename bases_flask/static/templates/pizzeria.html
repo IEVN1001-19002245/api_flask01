@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% block contenido %}
+{% import "_macros.html" as macros %}
+
+<h1>Pizzería</h1>
+
+<form action="/pizzeria" method="post">
+  {{ macros.render_field(form.nombre) }}
+  {{ macros.render_field(form.direccion) }}
+  {{ macros.render_field(form.telefono) }}
+  <hr>
+
+  <h3>Selecciona tu pizza</h3>
+  {{ macros.render_field(form.tamanio) }}
+  {{ macros.render_field(form.ingredientes) }}
+  {{ macros.render_field(form.cantidad) }}
+
+<button type="submit" name="accion" value="agregar" class="btn">Agregar</button>
+<button type="submit" name="accion" value="terminar" class="btn">Terminar día</button>
+<button type="submit" name="accion" value="borrar_todo" class="btn">Borrar todo</button>
+
+{% if pizzas %}
+  <hr>
+  <h3>Detalle del pedido</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tamaño</th>
+        <th>Ingredientes</th>
+        <th>Cantidad</th>
+        <th>Subtotal</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in pizzas %}
+      <tr>
+        <td>{{ loop.index0 }}</td>
+        <td>{{ p.tamaño }}</td>
+        <td>{{ p.ingredientes|join(', ') }}</td>
+        <td>{{ p.cantidad }}</td>
+        <td>${{ p.subtotal }}</td>
+        <td>
+          <form method="post" style="display:inline;">
+            <input type="hidden" name="indice" value="{{ loop.index0 }}">
+            <button type="submit" name="accion" value="quitar" class="btn btn-primary">Quitar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% if total %}
+  <h3>Total: ${{ total }}</h3>
+{% endif %}
+
+{% if mensaje %}
+  <div class="alert alert-success mt-3">{{ mensaje }}</div>
+{% endif %}
+
+{% if ventas %}
+  <hr>
+  <h3>Ventas del día</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Cliente</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Total Pedido</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in ventas %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ v.nombre }}</td>
+        <td>{{ v.telefono }}</td>
+        <td>{{ v.direccion }}</td>
+        <td>${{ v.total }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h4>Total general del día: ${{ total_general }}</h4>
+{% endif %}
+
+{% endblock %}

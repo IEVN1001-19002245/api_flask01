@@ -1,0 +1,47 @@
+{% macro campo1(name, placeholder, type='text') %}
+        
+        <div class="mb-3">
+            <label for="{{name}}" class="form-label">{{name}}</label>
+            <input type="{{type}}" class="form-control" id="{{name}}" name="{{name}}" placeholder="{{placeholder}}">
+        </div>
+
+{% endmacro %}
+
+{% macro dcampos(field) %}
+  <div class="form-group mb-3">
+    <label for="{{ field.name }}">{{ field.label.text }}</label>
+    {{ field(class="form-control") }}
+  {% if field.errors %}
+      <ul class=errors>
+      {% for error in field.errors %}
+        <li style="color: red;">{{error}}</li>
+      {% endfor %}
+      </ul>
+  {% endif %}
+  </div>
+
+{% endmacro %}
+
+
+{% macro campoPiz(name, placeholder, type="text") %}
+<div class="form-group mb-3">
+    <label for="{{name}}" class="form-label">{{name}}</label>
+    <input type="{{type}}" class="form-control"
+    name="{{name}}" id="{{name}}"
+    placeholder="{{ placeholder }}" required>
+</div>
+{% endmacro %}
+
+{% macro render_field(field) %}
+  <dt>{{ field.label }}
+  <dd>{{ field(**kwargs)|safe }}
+  {% if field.errors %}
+    <ul class=errors>
+    {% for error in field.errors %}
+      <li style="color: blue">{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  </dd>
+{% endmacro %}
+
